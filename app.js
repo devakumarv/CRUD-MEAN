@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const homeRoutes = require('./routers/home');
 
 app.use(bodyParser.urlencoded({extended:true}));
-const dbURI = 'mongodb+srv://devakumarv:abcdefgh@crud-operations.6ur8tn0.mongodb.net/crud-operations?retryWrites=true&w=majority';
+const dbURI = 'mongodb+srv://<username>:<password>@<cluster_name>.6ur8tn0.mongodb.net/<cluster_name>?retryWrites=true&w=majority';
 
 mongoose.set('strictQuery', true);
 mongoose.connect(dbURI, {useNewUrlParser:true,useUnifiedTopology: true})
