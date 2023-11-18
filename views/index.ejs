@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD OPERATIONS | FORM</title>
+    <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        outline: none;
+    }
+    body{
+        font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        background-color: antiquewhite;
+    }
+    .container{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 800px;
+            transform: translate(-50%,-50%);
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: -webkit-box-shadow: 10px 10px 25px -4px rgba(0,0,0,0.45);
+                            -moz-box-shadow: 10px 10px 25px -4px rgba(0,0,0,0.45);
+                        box-shadow: 10px 10px 25px -4px rgba(0,0,0,0.75);
+        }
+        .container h1{
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(0, 0, 0, 0.726);
+        }
+        input[type="text"], textarea{
+            border: 1.5px solid rgba(83, 83, 83, 0.692);
+            padding: 10px;
+            border-radius: 5px;
+         }
+         input.fail{
+             border: 2px solid orangered;
+         }
+         .container textarea{
+             height: 40px;
+             width: 100%;
+             resize: none;
+         }
+         .container input[type="date"]{
+
+             padding: 5px;
+             border: solid 1.5px rgba(83, 83, 83, 0.692);
+             border-radius: 5px;
+            
+         }
+         .container select{
+         padding: 5px;
+         border: solid 1.5px rgba(83, 83, 83, 0.692);
+         border-radius: 5px;
+
+}
+         .container input[type="time"]{
+            padding: 5px;
+            border: solid 1.5px rgba(83, 83, 83, 0.692);
+            border-radius: 5px;
+    
+         }
+         .n input{
+             width: 49%;             
+         }
+         .n{
+            display: flex;
+             justify-content: space-between;
+         }
+         .mail input{
+             width: 100%;
+         }
+         .gen input{
+             width: 8%;
+         }
+         .ph input{
+             width: 100%;
+         }
+         .ernam,.ermail,.ercountopic,.errad,.erph,.erdate,.ertime,.ermsg{padding: 5px;color: red; height: 30px;}
+         h4{margin-top: 8px;
+         margin-bottom: 5px;}
+         .container .btn input[type="submit"]{
+             border-radius: 5px;
+             padding: 10px;
+             width: 80%;
+             margin-left: 43%;
+             background-color:#2b4f81 ;
+             color: white;
+             text-transform: uppercase;
+             letter-spacing: 5px;
+             font-weight: bold;
+             cursor: pointer;
+         }
+         .container .btn input[type="button"]{
+             border-radius: 5px;
+             padding: 10px;
+             width: 80%;
+             margin-left: 43%;
+             background-color:#2b4f81 ;
+             color: white;
+             text-transform: uppercase;
+             letter-spacing: 5px;
+             font-weight: bold;
+             cursor: pointer;
+         }
+         .main{
+             display: flex;
+             justify-content: space-around;
+         }
+         .left,.right{width: 50%;}
+         .left{
+             padding: 20px;
+         }
+         .right{
+             padding: 20px;
+         }
+         .bottom{
+            width: 60%;
+             margin-left: 20%;
+         }
+         input.success{
+             border: solid 2px rgb(22, 206, 22);
+         }
+         .ernam{
+             width: 100%;
+             display: flex;
+             justify-content: space-between;
+         }
+         .ernam #fn{
+             width: 49%;
+         }
+         .ernam #ln{
+             width: 49%;
+         }
+         #erph{
+            color: orangered;
+            padding: 10px;
+         }
+         #ermail{
+            color: orangered;
+            padding: 5px;
+         }
+         #ercountopic{
+            color: orangered;
+            padding: 5px;
+         }
+         #ercountopic1{
+            color: orangered;
+            padding: 5px;
+         }
+         #ercountopic2{
+            color: orangered;
+            padding: 5px;
+         }
+         #ercountopic3{
+            color: orangered;
+            padding: 5px;
+         }
+         #ercountopic4{
+            color: orangered;
+            padding: 5px;
+         }
+         #ermsg{
+            color: orangered;
+            padding: 5px;
+         }
+         #errad{
+            color: orangered;
+            padding: 5px;
+         }
+         textarea.success{
+            border: solid 2px rgb(22, 206, 22);
+         }
+         textarea.fail{
+            border: 2px solid orangered;
+         }
+         @media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  input {
+    width: 100%;
+  }
+  .container {
+    width: 100%;
+  }
+  *{
+    width: 100%;
+  }
+}
+</style>
+<body>
+    <div ng-app = "mainApp" ng-controller = "tutordetailsController">
+    <div class="container">
+        <h1>CRUD OPERATIONS FORM</h1>
+        <br>
+        <form name="myForm" method="post" action="/add" novalidate>
+            <div class="main">
+                <div class="left">
+                    <div class="mail">
+                        <h4>Name</h4>
+                        <input type="text" placeholder="Name" name="name" ng-model="name" ng-pattern="reCheckName" required="">
+                        <div id="ermail">
+                            <span ng-show="myForm.name.$dirty">
+                                <span class="error" ng-show="myForm.name.$error.required"> Field Cannot be empty</span>
+                                <span class="error" ng-show="myForm.name.$error.pattern"> Incorrect Format</span>
+                                </span>
+                        </div>
+                    </div>
+
+                    <h4>Product ID</h4>
+                        <select name="productid" id="productid">
+                            <option value="PT001">PT001</option>
+                            <option value="PT002">PT002</option>
+                            <option value="PT003">PT003</option>
+                          </select>
+                     <br/><br/>
+
+                         <h4>Category </h4> 
+                          <select name="category" id="category">
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                          </select>
+                          <br/><br/>
+
+                    <div class="mail">
+                            <h4>Price (in ₹)</h4>
+                            <input type="text" placeholder="Price" name="price" ng-model="price"  required="">
+                            <div id="ercountopic1">
+                                <span ng-show="myForm.price.$dirty">
+                                    <span class="error" ng-show="myForm.price.$error.required"> Field Cannot be empty</span>
+                                    </span>
+                            </div>   
+                    </div>
+                    <div class="btn" style="margin-top: 20px; width: 200px; ">
+                         <input type="submit" value="Submit">
+                </div>
+
+    
+                </div>
+                <div class="right">
+                    <div class="mail">
+                        <h4>Discount (in %)</h4>
+                        <input type="text" placeholder="Discount" name="discount" ng-model="discount"  required="">
+                        <div id="ercountopic3">
+                            <span ng-show="myForm.discount.$dirty">
+                                <span class="error" ng-show="myForm.discount.$error.required"> Field Cannot be empty</span>
+                                </span>
+                        </div>   
+                    </div>
+                    <br/>
+                   
+                    <div class="mail">
+                        <h4>Bonus (in ₹)</h4>
+                        <input type="text" placeholder="Bonus" name="bonus" ng-model="bonus" required="">
+                        <div id="ercountopic2">
+                            <span ng-show="myForm.bonus.$dirty">
+                                <span class="error" ng-show="myForm.bonus.$error.required"> Field Cannot be empty</span>
+                                </span>
+                        </div>   
+                    </div>
+                    <br/>
+                  
+                    <div class="mail">
+
+                        <h4>Billable Price (in ₹)</h4>
+                        <textarea  name="billprice" readonly="readonly">{{ price - price*(discount/100) - bonus }}</textarea>
+                    </div>
+                    
+                    <div class="btn" style="margin-top: 70px;width: 200px;">
+                    <input type="button" onclick="location.href='/display'" value="View All">
+                    </div>
+                    <br/>
+                 
+                </div>
+            </div>                     
+        </form>
+    </div>
+    </div>
+    <script>
+        var mainApp = angular.module("mainApp", []);
+        mainApp.controller('tutordetailsController', function($scope) {
+           $scope.reCheckName = /^[A-Za-z]+$/;
+        });
+     </script>
+</body>
+</html>
